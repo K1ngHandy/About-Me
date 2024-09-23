@@ -17,8 +17,8 @@ struct Info {
 
 let information = Info(
     image: "Placeholder",
-    name: "My Name",
-    story: "A story can be about anything you can dream up. There are no right answers, there is no one else.\n\nNeed some inspiration?\n• 🐶🐱🛶️🎭🎤🎧🎸\n• 🏄‍♀️🚵‍♀️🚴‍♀️⛵️🥾🏂⛷📚\n• ✍️🥖☕️🏋️‍♂️🚲🧗‍♀️ ",
+    name: "K1ngHandy",
+    story: "My coding journey began several years ago and has since evolved into working prototypes -🦁",
     hobbies: ["bicycle", "ticket.fill", "book.fill"],
     foods: ["🥐", "🌮", "🍣"],
     colors: [Color.blue, Color.purple, Color.pink],
