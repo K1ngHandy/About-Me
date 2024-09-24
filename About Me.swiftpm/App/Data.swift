@@ -2,12 +2,14 @@
 See the License.txt file for this sample’s licensing information.
 */
 
-import Foundation
+//import Foundation
 import SwiftUI
 
 struct Info {
     let image: String
     let name: String
+    let title: String
+    let url: URL?
     let story: String
     let hobbies: [String]
     let foods: [String]
@@ -18,10 +20,12 @@ struct Info {
 let information = Info(
     image: "Placeholder",
     name: "K1ngHandy",
-    story: "My coding journey began several years ago and has since evolved into working prototypes -🦁",
-    hobbies: ["bicycle", "ticket.fill", "book.fill"],
+    title: "GitHub",
+    url: URL(string: "https://github.com/")!,
+    story: "My coding journey began \n several years ago and has since \n evolved into working prototypes -🦁",
+    hobbies: ["book.and.wrench.fill", "brain.head.profile", "ticket.fill"],
     foods: ["🥐", "🌮", "🍣"],
-    colors: [Color.blue, Color.purple, Color.pink],
+    colors: [Color.blue, Color.cyan, Color.indigo],
     funFacts: [
         "The femur is the longest and largest bone in the human body.",
         "The moon is 238,900 miles away.",

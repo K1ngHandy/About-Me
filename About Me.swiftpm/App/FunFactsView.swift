@@ -6,7 +6,7 @@ import SwiftUI
 
 struct FunFactsView: View {
 
-    @State private var funFact = ""
+    @State private var funFact = "Click for random fun facts:"
     var body: some View {
         VStack {
             Text("Fun Facts")
@@ -16,11 +16,15 @@ struct FunFactsView: View {
             Text(funFact)
                 .padding()
                 .font(.title)
-                .frame(minHeight: 400)
+                .frame(minHeight: 270)
 
             Button("Show Random Fact") {
                 funFact = information.funFacts.randomElement()!
             }
+            .padding(9)
+            .border(Color.blue, width: 3)
+            .cornerRadius(12)
+            
         }
         .padding()
     }

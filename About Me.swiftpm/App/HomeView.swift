@@ -8,7 +8,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            Text("All About")
+            Text("About Me")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()

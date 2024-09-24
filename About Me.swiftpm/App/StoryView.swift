@@ -17,6 +17,21 @@ struct StoryView: View {
                     .font(.body)
                     .padding()
             }
+            
+            if let validURL = information.url {
+                Text("Visit \(information.title)")
+                    .padding()
+                    .font(.headline)
+                Link(information.title, destination: validURL)
+            } else {
+                Text("URL not available")
+                    .padding()
+                    .foregroundColor(.red)
+            }
+            
+            Text("By \(information.name)")
+                .font(.caption)
+                .padding()
         }
         .padding([.top, .bottom], 50)
     }
