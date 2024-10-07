@@ -7,22 +7,18 @@ import SwiftUI
 struct StoryView: View {
     var body: some View {
         VStack {
-            Text("My Story")
-                .font(.largeTitle)
+            Text("My Profile:")
+                .font(.title)
                 .fontWeight(.bold)
                 .padding()
             
-            ScrollView {
-                Text(information.story)
-                    .font(.body)
-                    .padding()
-            }
-            
             if let validURL = information.url {
-                Text("Visit \(information.title)")
-                    .padding()
-                    .font(.headline)
-                Link(information.title, destination: validURL)
+                HStack {
+                    Image(systemName: "link")
+                    
+                    Link(information.title, destination: validURL)
+                        .font(.title3)
+                }
             } else {
                 Text("URL not available")
                     .padding()

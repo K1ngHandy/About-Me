@@ -20,9 +20,9 @@ struct Info {
 let information = Info(
     image: "Placeholder",
     name: "K1ngHandy",
-    title: "GitHub",
-    url: URL(string: "https://github.com/")!,
-    story: "My coding journey began \n several years ago and has since \n evolved into working prototypes -🦁",
+    title: "Solo.to",
+    url: URL(string: "https://solo.to/k1nghandy")!,
+    story: "My coding journey began years \n ago, in the womb, and has since \n evolved into working prototypes.",
     hobbies: ["book.and.wrench.fill", "brain.head.profile", "ticket.fill"],
     foods: ["🥐", "🌮", "🍣"],
     colors: [Color.blue, Color.cyan, Color.indigo],
