@@ -17,9 +17,9 @@ struct ContentView: View {
                     Label("Story", systemImage: "book")
                 }
             
-            FavoritesView()
+            MapView(placeID: "sample_place_id")
                 .tabItem {
-                    Label("Favorites", systemImage: "star")
+                    Label("Map", systemImage: "star")
                 }
             
             FunFactsView()
