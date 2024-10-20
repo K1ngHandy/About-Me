@@ -5,18 +5,25 @@ See the License.txt file for this sample’s licensing information.
 import SwiftUI
 import MapKit
 
+struct IdentifiableMapItem: Identifiable {
+    let id = UUID()
+    let mapItem: MKMapItem
+}
+
 struct MapView: View {
 //    Create map view
     var placeID: String
     
-    @State var item: MKMapItem?
+    @State var item: IdentifiableMapItem?
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 40.7127, longitude: -74.0059),
+        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    )
     
     var body: some View {
         if #available(iOS 17.0, *) {
-            Map {
-                if let item = item {
-                    Marker(item: item)
-                }
+            Map(coordinateRegion: $region, showsUserLocation: false, annotationItems: [item].compactMap { $0 }) { item in
+                MapMarker(coordinate: item.mapItem.placemark.coordinate, tint: .red)
             }
             .task {
                 await fetchMapItem()
@@ -26,6 +33,11 @@ struct MapView: View {
             Text("Map feature is not supported on your device.")
                 .padding()
                 .foregroundColor(.red)
+            if let item = item {
+                Text("Location: \(item.mapItem.name ?? "Unknown")")
+                    .font(.headline)
+                    .padding()
+            }
         }
     }
     
@@ -36,8 +48,15 @@ struct MapView: View {
         let search = MKLocalSearch(request: request)
         do {
             let response = try await search.start()
-            item = response.mapItems.first
-        } catch {
+            if let firstItem = response.mapItems.first {
+                item = IdentifiableMapItem(mapItem: firstItem)
+                
+                region = MKCoordinateRegion(
+                    center: firstItem.placemark.coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                    )
+            }
+    } catch {
             print("Error fetching map item: \(error.localizedDescription)")
         }
     }
