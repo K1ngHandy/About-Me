@@ -13,12 +13,27 @@ struct IdentifiableMapItem: Identifiable {
 struct MapView: View {
 //    Create map view
     var placeID: String
+    var mapView: MKMapView?
     
     @State var item: IdentifiableMapItem?
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.7127, longitude: -74.0059),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
+    
+	//	create zoom control
+    init(placeID: String, mapView: MKMapView? = nil) {
+        self.placeID = placeID
+        self.mapView = mapView
+        
+        if let mapView = mapView {
+            let center = mapView.region.center
+            self._region = State(initialValue: MKCoordinateRegion(
+                center: center,
+                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            ))
+        }
+    }
     
     var body: some View {
         if #available(iOS 17.0, *) {
