@@ -13,47 +13,34 @@ struct IdentifiableMapItem: Identifiable {
 struct MapView: View {
 //    Create map view
     var placeID: String
-    var mapView: MKMapView?
     
-    @State var item: IdentifiableMapItem?
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 40.7127, longitude: -74.0059),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
-    
-	//	create zoom control
-    init(placeID: String, mapView: MKMapView? = nil) {
-        self.placeID = placeID
-        self.mapView = mapView
-        
-        if let mapView = mapView {
-            let center = mapView.region.center
-            self._region = State(initialValue: MKCoordinateRegion(
-                center: center,
-                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            ))
-        }
-    }
+	@State private var region = MKCoordinateRegion(
+		center: CLLocationCoordinate2D(latitude: 40.7127, longitude: -74.0059),
+		span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+	)
+	
+	@State private var mapView: MKMapView? // reference to UIKit MKMapView
     
     var body: some View {
-        if #available(iOS 17.0, *) {
-            Map(coordinateRegion: $region, showsUserLocation: false, annotationItems: [item].compactMap { $0 }) { item in
-                MapMarker(coordinate: item.mapItem.placemark.coordinate, tint: .red)
-            }
-            .task {
-                await fetchMapItem()
-            }
-        } else {
-            // Fallback on earlier versions
-            Text("Map feature is not supported on your device.")
-                .padding()
-                .foregroundColor(.red)
-            if let item = item {
-                Text("Location: \(item.mapItem.name ?? "Unknown")")
-                    .font(.headline)
-                    .padding()
-            }
-        }
+		VStack {
+			if #available(iOS 17.0, *) {
+				MKMapViewRepresentable(mapView: $mapView, region: $region)
+					.frame(height: 400)
+					.task {
+						await fetchMapItem()
+					}
+			} else {
+				// Fallback on earlier versions
+				Text("Map feature is not supported on your device.")
+					.padding()
+					.foregroundColor(.red)
+				if let mapView = mapView {
+					Text("Location: \(mapView.region.center.latitude), \(mapView.region.center.longitude)")
+						.font(.headline)
+						.padding()
+				}
+			}
+		}
     }
     
     func fetchMapItem() async {
@@ -64,12 +51,13 @@ struct MapView: View {
         do {
             let response = try await search.start()
             if let firstItem = response.mapItems.first {
-                item = IdentifiableMapItem(mapItem: firstItem)
-                
+                let coordinate = firstItem.placemark.coordinate
                 region = MKCoordinateRegion(
-                    center: firstItem.placemark.coordinate,
+                    center: coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                     )
+//					update mapView region manually
+					mapView?.setRegion(region, animated: true)
             }
     } catch {
             print("Error fetching map item: \(error.localizedDescription)")
