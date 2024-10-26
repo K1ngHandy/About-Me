@@ -10,8 +10,8 @@ struct IdentifiableMapItem: Identifiable {
     let mapItem: MKMapItem
 }
 
-struct MapView: View {
 //    Create map view
+struct MapView: View {
     var placeID: String
     
 	@State private var region = MKCoordinateRegion(
@@ -20,6 +20,7 @@ struct MapView: View {
 	)
 	
 	@State private var mapView: MKMapView? // reference to UIKit MKMapView
+	@StateObject private var locationManager = LocationManager()
     
     var body: some View {
 		VStack {
@@ -29,8 +30,15 @@ struct MapView: View {
 					.task {
 						await fetchMapItem()
 					}
+				
+				Button(action: centerOnUserLocation) {
+					Label("Current Location", systemImage: "location.fill")
+				}
+				.padding()
+				.background(Color.blue)
+				.foregroundColor(.white)
+				.clipShape(Capsule())
 			} else {
-				// Fallback on earlier versions
 				Text("Map feature is not supported on your device.")
 					.padding()
 					.foregroundColor(.red)
@@ -56,13 +64,21 @@ struct MapView: View {
                     center: coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                     )
-//					update mapView region manually
 					mapView?.setRegion(region, animated: true)
             }
     } catch {
             print("Error fetching map item: \(error.localizedDescription)")
         }
     }
+	
+	func centerOnUserLocation() {
+		guard let userLocation = locationManager.userLocation else { return }
+		region = MKCoordinateRegion(
+			center: userLocation,
+			span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+		)
+		mapView?.setRegion(region, animated: true)
+	}
 }
 
 struct MapView_Previews: PreviewProvider {
