@@ -9,22 +9,22 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "person")
+                    Label("Home", systemImage: "person.circle")
                 }
 
             StoryView()
                 .tabItem {
-                    Label("Story", systemImage: "book")
+                    Label("Story", systemImage: "book.circle")
                 }
             
             MapView(placeID: "sample_place_id")
                 .tabItem {
-                    Label("Map", systemImage: "star")
+                    Label("Map", systemImage: "map.circle")
                 }
             
             FunFactsView()
                 .tabItem {
-                    Label("Fun Facts", systemImage: "hand.thumbsup")
+                    Label("Fun Facts", systemImage: "books.vertical.circle")
                 }
         }
         
