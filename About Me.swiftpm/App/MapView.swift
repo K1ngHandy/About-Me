@@ -25,16 +25,20 @@ struct MapView: View {
     var body: some View {
 		VStack {
 			if #available(iOS 17.0, *) {
+				Text("Current View:")
+					.padding()
+					.font(.largeTitle)
+					.fontWeight(.bold)
 				MKMapViewRepresentable(mapView: $mapView, region: $region)
-					.frame(height: 400)
+					.frame(height: 450)
 					.task {
 						await fetchMapItem()
 					}
 				
 				Button(action: centerOnUserLocation) {
-					Label("Current Location", systemImage: "location.fill")
+					Label("Center Map", systemImage: "location.fill")
 				}
-				.padding()
+				.padding(9)
 				.background(Color.blue)
 				.foregroundColor(.white)
 				.clipShape(Capsule())

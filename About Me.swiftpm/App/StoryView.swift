@@ -7,7 +7,7 @@ import SwiftUI
 struct StoryView: View {
     var body: some View {
         VStack {
-            Text("My Profile:")
+            Text("Profile:")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
@@ -17,7 +17,7 @@ struct StoryView: View {
                     Image(systemName: "link")
                     
                     Link(information.title, destination: validURL)
-                        .font(.title3)
+                        .font(.title2)
                 }
             } else {
                 Text("URL not available")
