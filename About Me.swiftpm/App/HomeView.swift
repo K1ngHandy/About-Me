@@ -18,13 +18,13 @@ struct HomeView: View {
 					Image(systemName: isExpanded ? "chevron.down" : "chevron.up")
 						.rotationEffect(.degrees(isExpanded ? 0 : 100))
 						.animation(.easeInOut, value: isExpanded)
-					
-						.onTapGesture {
-							withAnimation {
-								isExpanded.toggle()
-							}
-						}
 				}
+				.onTapGesture {
+					withAnimation {
+						isExpanded.toggle()
+					}
+				}
+				
 				Text(isExpanded ? "" : "Expand for more...")
 					.padding(.leading)
 					.font(.title2)
