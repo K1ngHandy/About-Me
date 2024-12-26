@@ -15,7 +15,7 @@ struct MapView: View {
     var placeID: String
     
 	@State private var region = MKCoordinateRegion(
-		center: CLLocationCoordinate2D(latitude: 40.7127, longitude: -74.0059),
+		center: CLLocationCoordinate2D(latitude: 40.1013, longitude: -75.3836),
 		span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
 	)
 	
@@ -87,6 +87,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(placeID: "sample_place_id")
+        MapView(placeID: "king_of_prussia")
     }
 }

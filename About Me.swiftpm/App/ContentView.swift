@@ -9,15 +9,15 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "person.circle")
+                    Label("Home", systemImage: "menucard.fill")
                 }
 
             StoryView()
                 .tabItem {
-                    Label("Story", systemImage: "book.circle")
+                    Label("Socials", systemImage: "person.line.dotted.person.fill")
                 }
             
-            MapView(placeID: "sample_place_id")
+            MapView(placeID: "king_of_prussia")
                 .tabItem {
                     Label("Map", systemImage: "map.circle")
                 }
@@ -27,7 +27,6 @@ struct ContentView: View {
                     Label("Fun Facts", systemImage: "books.vertical.circle")
                 }
         }
-        
     }
 }
 

@@ -11,8 +11,6 @@ struct Info {
     let title: String
     let url: URL?
     let story: String
-    let hobbies: [String]
-    let foods: [String]
     let colors: [Color]
     let funFacts: [String]
 }
@@ -23,8 +21,6 @@ let information = Info(
     title: "Solo.to",
     url: URL(string: "https://solo.to/k1nghandy")!,
     story: "My coding journey began years \n ago, in the womb, and has since \n evolved into working prototypes.",
-    hobbies: ["book.and.wrench.fill", "brain.head.profile", "ticket.fill"],
-    foods: ["🥐", "🌮", "🍣"],
     colors: [Color.blue, Color.cyan, Color.indigo],
     funFacts: [
         "The femur is the longest and largest bone in the human body.",

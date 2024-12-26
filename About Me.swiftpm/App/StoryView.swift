@@ -12,22 +12,7 @@ struct StoryView: View {
                 .fontWeight(.bold)
                 .padding()
             
-            if let validURL = information.url {
-                HStack {
-                    Image(systemName: "link")
-                    
-                    Link(information.title, destination: validURL)
-                        .font(.title2)
-                }
-            } else {
-                Text("URL not available")
-                    .padding()
-                    .foregroundColor(.red)
-            }
             
-            Text("By \(information.name)")
-                .font(.caption)
-                .padding()
         }
         .padding([.top, .bottom], 50)
     }

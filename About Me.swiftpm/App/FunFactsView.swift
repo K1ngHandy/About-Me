@@ -9,16 +9,12 @@ struct FunFactsView: View {
     
     var body: some View {
         VStack {
-            Text("Fun Facts")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
             Text(funFact)
                 .padding()
                 .font(.title)
                 .frame(minHeight: 270)
             
-            Button("Show Random Fact") {
+            Button("Random Fact") {
                 funFact = information.funFacts.randomElement()!
             }
             .padding()
@@ -26,6 +22,8 @@ struct FunFactsView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.purple.opacity(0.9), lineWidth: 1.2)
             )
+//            change button text color
+            .foregroundColor(Color.indigo)
             .padding()
         }
     }
