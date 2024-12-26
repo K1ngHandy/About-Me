@@ -11,8 +11,6 @@ struct StoryView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
-            
-            
         }
         .padding([.top, .bottom], 50)
     }

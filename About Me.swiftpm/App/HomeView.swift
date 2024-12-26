@@ -7,11 +7,11 @@ import SwiftUI
 struct HomeView: View {
     @State private var isExpanded = false
     
-    let logoImage = information.image[0]
+    let logoImage = information.logoImage
     
     var body: some View {
         VStack(alignment: .leading) {
-            HeaderView(isExpanded: $isExpanded)
+            HeaderView(information: information, isExpanded: $isExpanded)
             
             if isExpanded {
                 ExpandedContentView(logoImage: logoImage)
@@ -19,13 +19,14 @@ struct HomeView: View {
                 CollapsedContentView(logoImage: logoImage)
             }
             
-            FooterView()
+            FooterView(information: information)
         }
         .padding(9)
     }
 }
 
 struct HeaderView: View {
+    let information: Info
     @Binding var isExpanded: Bool
     
     var body: some View {
@@ -61,13 +62,12 @@ struct CollapsedContentView: View {
                 .font(.title2)
                 .opacity(0.75)
         }
-
-        .animation(.easeOut(duration: 10), value: logoImage)
     }
 }
 
 struct ExpandedContentView: View {
     let logoImage: String
+    let links = information.links
     
     var body: some View {
         VStack(alignment: .center) {
@@ -78,39 +78,46 @@ struct ExpandedContentView: View {
                 .cornerRadius(15)
                 .padding(21)
 
-                if let validURL = information.url {
-                    LinkView(url: validURL, title: information.title)
-                } else {
-                    Text("Links not available")
-                        .padding()
-                        .foregroundColor(.red)
-                }
+            if !links.isEmpty {
+                    LinkView(links: links)
+            } else {
+                Text("Links not available")
+                    .padding()
+                    .foregroundColor(.red)
+            }
         }
         .transition(.slide)
     }
 }
 
 struct LinkView: View {
-    let url: URL
-    let title: String
+    let links: [(url: URL, image: String, title: String)]
     
     var body: some View {
-//        create unordered list of links with icons:
-        
-        
-        
-        Link(title, destination: url)
-            .font(.title2)
-            .padding()
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.purple.opacity(0.9), lineWidth: 1.8)
-            )
+        VStack(alignment: .leading, spacing: 10) {
+            ForEach(links, id: \.url) { link in
+                HStack {
+                    Image(link.image)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                    Link(link.title, destination: link.url)
+                        .font(.title2)
+                }
+                .padding(5)
+                .cornerRadius(15)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                )
+            }
+        }
+        .padding()
     }
 }
 
 struct FooterView: View {
+    let information: Info
+    
     var body: some View {
         Text("Coded By: \(information.name)")
             .foregroundColor(Color.accentColor)

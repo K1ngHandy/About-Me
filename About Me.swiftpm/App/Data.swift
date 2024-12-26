@@ -6,30 +6,49 @@ See the License.txt file for this sample’s licensing information.
 import SwiftUI
 
 struct Info {
-    let image: [String]
+    let logoImage: String
     let name: String
-    let title: String
-    let url: URL?
-    let story: String
-    let colors: [Color]
-    let funFacts: [String]
+    let links: [(url: URL, image: String, title: String)]
 }
 
 let information = Info(
-    image: ["AI-icon", "IMG_0179"],
+    logoImage: "AI-icon",
     name: "K1ngHandy",
-    title: "Solo.to",
-    url: URL(string: "https://solo.to/k1nghandy")!,
-    story: "My coding journey began years \n ago, in the womb, and has since \n evolved into working prototypes.",
-    colors: [Color.blue, Color.cyan, Color.indigo],
-    funFacts: [
-        "The femur is the longest and largest bone in the human body.",
-        "The moon is 238,900 miles away.",
-        "Prince’s last name was Nelson.",
-        "503 new species were discovered in 2020.",
-        "Ice is 9 percent less dense than liquid water.",
-        "You can spell every number up to 1,000 without using the letter A.\n\n...one, two, three, four...ninety-nine...nine hundred ninety-nine 🧐",
-        "A collection of hippos is called a bloat.",
-        "White sand beaches are made of parrotfish poop.",
+    links: [
+        (
+            url: URL(string: "https://www.facebook.com/profile.php?id=100089943411049&mibextid=LQQJ4d")!,
+            image: "facebook-icon",
+            title: "Facebook"
+        ),
+        (
+            url: URL(string: "https://x.com/K1ngHandy")!,
+            image: "x-icon",
+            title: "X.com"
+        ),
+        (
+            url: URL(string: "https://www.tiktok.com/@k1nghandy?_t=8qANXakjzdC&_r=1")!,
+            image: "TikTok-icon",
+            title: "TikTok"
+        ),
+        (
+            url: URL(string: "https://www.threads.net/@k1nghandy")!,
+            image: "threads-icon-light",
+            title: "Threads"
+        ),
+        (
+            url: URL(string: "https://instagram.com/k1nghandy")!,
+            image: "instagram-icon",
+            title: "Instagram"
+        ),
+        (
+            url: URL(string: "https://bsky.app/profile/k1nghandy.bsky.social")!,
+            image: "bluesky-icon",
+            title: "Bluesky"
+        ),
+        (
+            url: URL(string: "https://www.linkedin.com/in/k1nghandy")!,
+            image: "linkedin-icon",
+            title: "LinkedIn"
+        )
     ]
 )
