@@ -6,7 +6,7 @@ See the License.txt file for this sample’s licensing information.
 import SwiftUI
 
 struct Info {
-    let image: String
+    let image: [String]
     let name: String
     let title: String
     let url: URL?
@@ -16,7 +16,7 @@ struct Info {
 }
 
 let information = Info(
-    image: "Placeholder",
+    image: ["AI-icon", "IMG_0179"],
     name: "K1ngHandy",
     title: "Solo.to",
     url: URL(string: "https://solo.to/k1nghandy")!,
