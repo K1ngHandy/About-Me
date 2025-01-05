@@ -12,9 +12,9 @@ struct ContentView: View {
                     Label("Home", systemImage: "menucard.fill")
                 }
 
-            StoryView()
+            Links()
                 .tabItem {
-                    Label("Socials", systemImage: "person.line.dotted.person.fill")
+                    Label("Links", systemImage: "person.line.dotted.person.fill")
                 }
             
             MapView(placeID: "king_of_prussia")
