@@ -30,11 +30,16 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
+		
         .onChange(of: selectedTab) { newValue in
-            print("Selected tab: \(newValue)")
-            if newValue == 0 {
-                isExpanded = false
-            }
+			print("Selected tab: \(newValue)")
+			if newValue != 1 {
+				isExpanded = false
+			} else if newValue == 1 {
+				isExpanded = true
+				print("Expanded: \(isExpanded)")
+				print("Selected tab: \(selectedTab)")
+			}
         }
     }
 }

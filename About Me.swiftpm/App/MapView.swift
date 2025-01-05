@@ -1,12 +1,13 @@
 import SwiftUI
 import MapKit
 
+// add search bar to the map view
+
 struct IdentifiableMapItem: Identifiable {
     let id = UUID()
     let mapItem: MKMapItem
 }
 
-//    Create map view
 struct MapView: View {
     var placeID: String
     

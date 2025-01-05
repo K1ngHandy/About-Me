@@ -17,19 +17,22 @@ struct HeaderView: View {
                 .rotationEffect(.degrees(isExpanded ? 0 : 100))
                 .animation(.easeInOut, value: isExpanded)
         }
+		
         .onTapGesture {
             withAnimation {
-                if isExpanded {
-                    selectedTab = 0
-                }
-                isExpanded.toggle()
+				if selectedTab == 0 {
+					selectedTab = 1
+				} else {
+					selectedTab = 0
+				}
+				isExpanded.toggle()
             }
         }
     }
 }
 
 struct HeaderView_Previews: PreviewProvider {
-    @State static var isExpanded = false
+    @State static var isExpanded = true
     @State static var selectedTab = 0
 
     static var previews: some View {
