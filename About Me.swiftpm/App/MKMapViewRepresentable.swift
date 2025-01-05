@@ -1,6 +1,4 @@
-//
 //  MKMapViewRepresentable.swift
-//  About Me
 //
 //  Created by Steve Handy on 2024.10.24.
 //

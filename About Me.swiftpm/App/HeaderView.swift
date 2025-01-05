@@ -1,7 +1,4 @@
-//HeaderView.swift
-
 //Created by Steve Handy on 2024.12.26.
-
 
 import SwiftUI
 
