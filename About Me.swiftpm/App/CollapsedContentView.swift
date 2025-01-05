@@ -15,6 +15,7 @@ struct CollapsedContentView: View {
                 .font(.title2)
                 .opacity(0.75)
         }
+        .transition(.slide)
     }
 }
 

@@ -8,6 +8,7 @@ import SwiftUI
 struct HeaderView: View {
     let information: Info
     @Binding var isExpanded: Bool
+    @Binding var selectedTab: Int
     
     var body: some View {
         HStack {
@@ -21,6 +22,9 @@ struct HeaderView: View {
         }
         .onTapGesture {
             withAnimation {
+                if isExpanded {
+                    selectedTab = 0
+                }
                 isExpanded.toggle()
             }
         }
@@ -29,8 +33,9 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     @State static var isExpanded = false
+    @State static var selectedTab = 0
 
     static var previews: some View {
-        HeaderView(information: information, isExpanded: $isExpanded)
+        HeaderView(information: information, isExpanded: $isExpanded, selectedTab: $selectedTab)
     }
 }
