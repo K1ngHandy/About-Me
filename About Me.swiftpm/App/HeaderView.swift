@@ -3,9 +3,9 @@
 import SwiftUI
 
 struct HeaderView: View {
-    let information: Info
     @Binding var isExpanded: Bool
     @Binding var selectedTab: Int
+	let information: Info
     
     var body: some View {
         HStack {
@@ -13,6 +13,7 @@ struct HeaderView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()
+				.animation(.easeInOut, value: isExpanded)
             Image(systemName: isExpanded ? "chevron.down" : "chevron.up")
                 .rotationEffect(.degrees(isExpanded ? 0 : 100))
                 .animation(.easeInOut, value: isExpanded)
@@ -36,6 +37,6 @@ struct HeaderView_Previews: PreviewProvider {
     @State static var selectedTab = 0
 
     static var previews: some View {
-        HeaderView(information: information, isExpanded: $isExpanded, selectedTab: $selectedTab)
+        HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
     }
 }

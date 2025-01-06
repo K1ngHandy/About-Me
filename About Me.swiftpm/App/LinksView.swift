@@ -3,19 +3,18 @@ import SwiftUI
 struct LinksView: View {
     @Binding var isExpanded: Bool
     @Binding var selectedTab: Int
-	
-	let logoImage = information.logoImage
+	let information: Info
 
     var body: some View {
         VStack(alignment: .leading) {
 			if isExpanded {
-				HeaderView(information: information, isExpanded: $isExpanded, selectedTab: $selectedTab)
+				HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
 				
-				ExpandedContentView(logoImage: logoImage, links: information.links)
+				ExpandedContentView(isExpanded: $isExpanded, information: information)
 				
 				FooterView(information: information)
 			} else {
-				CollapsedContentView(logoImage: logoImage)
+				CollapsedContentView(isExpanded: $isExpanded, information: information)
 			}
         }
         .padding(9)
@@ -25,9 +24,8 @@ struct LinksView: View {
 struct LinksView_Previews: PreviewProvider {
 	@State static var isExpanded = true
 	@State static var selectedTab = 1
-	
 
     static var previews: some View {
-        LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab)
+		LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
     }
 }

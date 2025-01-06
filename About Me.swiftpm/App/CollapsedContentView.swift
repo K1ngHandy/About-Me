@@ -1,26 +1,43 @@
 import SwiftUI
 
 struct CollapsedContentView: View {
-    let logoImage: String
+	@Binding var isExpanded: Bool
+	let information: Info
     
     var body: some View {
+		let links = information.links
+		
         HStack(alignment: .top) {
-            Image(logoImage)
-                .resizable()
-                .cornerRadius(15)
-                .frame(width: 50, height: 50)
+			LogoImage(isExpanded: $isExpanded, information: information)
+//			How to fade LogoImage in/out?
+			
 
-            Text("Expand for more...")
-                .padding(.leading)
-                .font(.title2)
-                .opacity(0.75)
+			VStack {
+				Text("Expand for more...")
+					.padding(.top)
+					.font(.title2)
+					.opacity(0.75)
+				
+				HStack {
+					Image(links[4].image)
+						.resizable()
+						.frame(width: 24, height: 24)
+					Image(links[3].image)
+						.resizable()
+						.frame(width: 24, height: 24)
+					Image(links[2].image)
+						.resizable()
+						.frame(width: 24, height: 24)
+				}
+			}
         }
-        .transition(.slide)
     }
 }
 
 struct CollapsedContentView_Previews: PreviewProvider {
+	@State static var isExpanded = false
+	
     static var previews: some View {
-        CollapsedContentView(logoImage: information.logoImage)
+        CollapsedContentView(isExpanded: $isExpanded, information: information)
     }
 }

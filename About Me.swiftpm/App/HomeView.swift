@@ -6,13 +6,24 @@ struct HomeView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HeaderView(information: information, isExpanded: $isExpanded, selectedTab: $selectedTab)
+            HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
             
-            LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab)
+			LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
             
             FooterView(information: information)
         }
         .padding(9)
+		
+		.onChange(of: selectedTab) { newValue in
+			print("Selected tab: \(newValue)")
+			if newValue != 1 {
+				isExpanded = false
+			} else if newValue == 1 {
+				isExpanded = true
+				print("Expanded: \(isExpanded)")
+				print("Selected tab: \(selectedTab)")
+			}
+		}
     }
 }
 

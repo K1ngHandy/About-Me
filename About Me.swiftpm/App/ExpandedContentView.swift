@@ -1,19 +1,14 @@
 import SwiftUI
 
 struct ExpandedContentView: View {
-    let logoImage: String
-    let links: [(url: URL, image: String, title: String)]
+	@Binding var isExpanded: Bool
+	let information: Info
     
     var body: some View {
         VStack(alignment: .center) {
-            Image(logoImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 150, height: 150)
-                .cornerRadius(15)
-                .padding(21)
+			LogoImage(isExpanded: $isExpanded, information: information)
 
-            if !links.isEmpty {
+			if !information.links.isEmpty {
                     Links()
             } else {
                 Text("Links not available")
@@ -21,12 +16,13 @@ struct ExpandedContentView: View {
                     .foregroundColor(.red)
             }
         }
-        .transition(.slide)
     }
 }
 
 struct ExpandedContentView_Previews: PreviewProvider {
+	@State static var isExpanded = true
+	
     static var previews: some View {
-        ExpandedContentView(logoImage: information.logoImage, links: information.links)
+		ExpandedContentView(isExpanded: $isExpanded, information: information)
     }
 }

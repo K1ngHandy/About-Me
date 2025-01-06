@@ -12,7 +12,7 @@ struct ContentView: View {
                 }
                 .tag(0)
 
-            LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab)
+			LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
                 .tabItem {
                     Label("Links", systemImage: "person.line.dotted.person.fill")
                 }
@@ -29,17 +29,6 @@ struct ContentView: View {
                     Label("Fun Facts", systemImage: "books.vertical.circle")
                 }
                 .tag(3)
-        }
-		
-        .onChange(of: selectedTab) { newValue in
-			print("Selected tab: \(newValue)")
-			if newValue != 1 {
-				isExpanded = false
-			} else if newValue == 1 {
-				isExpanded = true
-				print("Expanded: \(isExpanded)")
-				print("Selected tab: \(selectedTab)")
-			}
         }
     }
 }
