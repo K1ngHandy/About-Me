@@ -10,7 +10,7 @@ struct CollapsedContentView: View {
         HStack(alignment: .top) {
 			LogoImage(isExpanded: $isExpanded, information: information)
 //			How to fade LogoImage in/out?
-			
+//			Add tap listener to "Expand for more..."
 
 			VStack {
 				Text("Expand for more...")

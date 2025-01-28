@@ -17,7 +17,7 @@ struct LogoImage: View {
 		if !isExpanded {
 			Image(logoImage)
 				.resizable()
-				.cornerRadius(15)
+				.cornerRadius(45)
 				.aspectRatio(contentMode: .fit)
 				.frame(width: 120, height: 120)
 				.padding(21)

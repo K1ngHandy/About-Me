@@ -5,17 +5,19 @@ struct ExpandedContentView: View {
 	let information: Info
     
     var body: some View {
-        VStack(alignment: .center) {
-			LogoImage(isExpanded: $isExpanded, information: information)
+		ZStack {
+			VStack(alignment: .center) {
+				LogoImage(isExpanded: $isExpanded: information)
 
 			if !information.links.isEmpty {
-                    Links()
-            } else {
-                Text("Links not available")
-                    .padding()
-                    .foregroundColor(.red)
-            }
-        }
+				Links()
+			} else {
+				Text("Links not available")
+						.padding()
+						.foregroundColor(.red)
+				}
+			}
+		}
     }
 }
 

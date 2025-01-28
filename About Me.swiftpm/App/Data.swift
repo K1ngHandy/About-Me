@@ -7,7 +7,7 @@ struct Info {
 }
 
 let information = Info(
-    logoImage: "AI-icon",
+    logoImage: "App-icon",
     name: "K1ngHandy",
     links: [
         (

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "KingHandy icon.jpeg",
+      "filename" : "LionCoinToken.png",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Person-Image-Dark.png",
+      "filename" : "LionCoinTokenDark.png",
       "idiom" : "universal"
     },
     {
