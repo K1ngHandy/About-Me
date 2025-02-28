@@ -1,5 +1,8 @@
 import SwiftUI
 
+// Change background color:
+
+
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var isExpanded = false
@@ -24,12 +27,14 @@ struct ContentView: View {
                 }
                 .tag(2)
             
-            FunFactsView()
+            Commits()
                 .tabItem {
-                    Label("Fun Facts", systemImage: "books.vertical.circle")
+                    Label("Commits", systemImage: "laptopcomputer")
                 }
                 .tag(3)
         }
+        .background(Color.blue)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

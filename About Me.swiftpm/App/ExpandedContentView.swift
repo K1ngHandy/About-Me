@@ -7,7 +7,7 @@ struct ExpandedContentView: View {
     var body: some View {
 		ZStack {
 			VStack(alignment: .center) {
-				LogoImage(isExpanded: $isExpanded: information)
+				LogoImage(isExpanded: $isExpanded, information: information)
 
 			if !information.links.isEmpty {
 				Links()

@@ -27,23 +27,13 @@ let information = Info(
         ),
         (
             url: URL(string: "https://www.threads.net/@k1nghandy")!,
-            image: "threads-icon-light",
+            image: "threads-icon-dark",
             title: "Threads"
-        ),
-        (
-            url: URL(string: "https://instagram.com/k1nghandy")!,
-            image: "instagram-icon",
-            title: "Instagram"
         ),
         (
             url: URL(string: "https://bsky.app/profile/k1nghandy.bsky.social")!,
             image: "bluesky-icon",
             title: "Bluesky"
         ),
-        (
-            url: URL(string: "https://www.linkedin.com/in/k1nghandy")!,
-            image: "linkedin-icon",
-            title: "LinkedIn"
-        )
     ]
 )

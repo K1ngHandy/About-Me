@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "threads-icon-dark.png",
+      "filename" : "threads-logo-black-01.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "threads-logo-black.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "threads-logo-black-01 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
