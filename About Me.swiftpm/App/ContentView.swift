@@ -1,8 +1,5 @@
 import SwiftUI
 
-// Change background color:
-
-
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var isExpanded = false
@@ -34,7 +31,7 @@ struct ContentView: View {
                 .tag(3)
         }
         .background(Color.blue)
-        .edgesIgnoringSafeArea(.all)
+        .ignoresSafeArea()
     }
 }
 
@@ -43,3 +40,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

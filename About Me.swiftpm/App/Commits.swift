@@ -7,12 +7,15 @@ struct WebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         webView.navigationDelegate = context.coordinator
+        webView.allowsBackForwardNavigationGestures = true
         return webView
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
         let request = URLRequest(url: url)
-        uiView.load(request)
+        if uiView.url != url {
+            uiView.load(request)
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -33,11 +36,14 @@ struct WebView: UIViewRepresentable {
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
             print("Failed to load URL: \(error.localizedDescription)")
         }
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            print("Finished loading URL: \(webView.url?.absoluteString ?? "unknown")")
+        }
     }
 }
 
 struct Commits: View {
-	private let username = "K1ngHandy"
 	private var url: URL {
         URL(string: "https://profile-view-wkri.vercel.app/")!
     }

@@ -52,10 +52,11 @@ struct MapView: View {
 		}
     }
     
+    @MainActor
     func fetchMapItem() async {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = placeID
-        
+
         let search = MKLocalSearch(request: request)
         do {
             let response = try await search.start()
@@ -64,10 +65,10 @@ struct MapView: View {
                 region = MKCoordinateRegion(
                     center: coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                    )
-					mapView?.setRegion(region, animated: true)
+                )
+                mapView?.setRegion(region, animated: true)
             }
-    } catch {
+        } catch {
             print("Error fetching map item: \(error.localizedDescription)")
         }
     }

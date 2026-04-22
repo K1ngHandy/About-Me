@@ -2,6 +2,7 @@
 //
 
 import CoreLocation
+import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 	@Published var userLocation: CLLocationCoordinate2D?
@@ -18,3 +19,4 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 		userLocation  = locations.first?.coordinate
 	}
 }
+
