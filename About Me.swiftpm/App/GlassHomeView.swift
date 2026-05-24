@@ -5,6 +5,9 @@ struct GlassHomeView: View {
     @Namespace private var glassNS
     @State private var tilt: CGSize = .zero
 
+    // Assuming real information.links is available in your app:
+    let information: Information
+
     var body: some View {
         Group {
             if #available(iOS 16.0, *) {
@@ -61,7 +64,6 @@ struct GlassHomeView: View {
                                 }
                         )
                     }
-                    .navigationTitle("About Me")
                     .toolbar { toolbarContent }
                 }
             } else {
@@ -118,7 +120,6 @@ struct GlassHomeView: View {
                                 }
                         )
                     }
-                    .navigationTitle("About Me")
                     .toolbar { toolbarContent }
                 }
             }
@@ -129,9 +130,7 @@ struct GlassHomeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("About Me")
                 .font(.largeTitle.bold())
-            Text("Modernized with Liquid Glass")
-                .font(.headline)
-                .foregroundStyle(.secondary)
+                .padding(.leading, 15)
         }
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -161,49 +160,32 @@ struct GlassHomeView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Showcase")
                 .font(.title2.weight(.semibold))
-            Text("Tap the toggle to see Liquid Glass morph between elements.\nEnjoy parallax and lighting for a more tactile feel.")
+            Text("Social Links")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-            GlassEffectContainer(spacing: 36) {
-                HStack(spacing: 20) {
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 28))
-                        .frame(width: 64, height: 64)
-                        .foregroundStyle(.yellow)
-                        .glassEffect(.regular, in: .rect(cornerRadius: 16))
-                        .shadow(color: .yellow.opacity(0.6), radius: 16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .stroke(LinearGradient(colors: [.white.opacity(0.6), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                        )
-                        .glassEffectID("left", in: glassNS)
-
-                    if isExpanded {
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 28))
-                            .frame(width: 64, height: 64)
-                            .foregroundStyle(.red)
-                            .glassEffect(.regular.tint(.red.opacity(0.15)).interactive(), in: .rect(cornerRadius: 16))
-                            .shadow(color: .red.opacity(0.5), radius: 16)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .stroke(LinearGradient(colors: [.white.opacity(0.6), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                            )
-                            .glassEffectID("right", in: glassNS)
+            GlassEffectContainer(spacing: 24) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 24) {
+                        ForEach(information.links) { link in
+                            Link(destination: link.url) {
+                                Image(link.image)
+                                    .resizable()
+                                    .frame(width: 48, height: 48)
+                                    .glassEffect(.regular, in: .circle)
+                                    .padding(8)
+                                    .shadow(color: .white.opacity(0.25), radius: 6, y: 2)
+                                    .shadow(color: .black.opacity(0.25), radius: 16, y: 8)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(LinearGradient(colors: [.white.opacity(0.35), .white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
+                                    )
+                            }
+                        }
                     }
-                }
-                .rotation3DEffect(.degrees(Double(tilt.width) * 0.05), axis: (x: 0, y: 1, z: 0))
-                .rotation3DEffect(.degrees(Double(-tilt.height) * 0.05), axis: (x: 1, y: 0, z: 0))
-                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: tilt)
-            }
-
-            Button(isExpanded ? "Collapse" : "Expand") {
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                    isExpanded.toggle()
+                    .padding(.horizontal, 12)
                 }
             }
-            .buttonStyle(.glass)
         }
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -298,7 +280,7 @@ struct GlassEffectContainer<Content: View>: View {
 enum GlassEffectStyle {
     case regular
     case regularTint(Color)
-    
+
     func tint(_ color: Color) -> GlassEffectStyle {
         switch self {
         case .regular:
@@ -307,7 +289,7 @@ enum GlassEffectStyle {
             return self
         }
     }
-    
+
     func interactive() -> GlassEffectStyle {
         self
     }
@@ -442,6 +424,5 @@ extension ButtonStyle where Self == GlassButtonStyle {
 }
 
 #Preview {
-    GlassHomeView()
+    GlassHomeView(information: Information())
 }
-

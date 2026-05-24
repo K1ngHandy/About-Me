@@ -1,18 +1,19 @@
 import SwiftUI
 
 struct Links: View {
+    // use the shared `information` model
     let links = information.links
-    
+
     var body: some View {
         GeometryReader { geometry in
             if geometry.size.width > geometry.size.height {
                 let columns = [
                     GridItem(.flexible()),
                     GridItem(.flexible()),
-                    GridItem(.flexible())
+                    GridItem(.flexible()),
                 ]
                 LazyVGrid(columns: columns, spacing: 5) {
-                    ForEach(links, id: \.url) { link in
+                    ForEach(links) { link in
                         HStack {
                             Image(link.image)
                                 .resizable()
@@ -31,7 +32,7 @@ struct Links: View {
                 .padding()
             } else {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(links, id: \.url) { link in
+                    ForEach(links) { link in
                         HStack {
                             Image(link.image)
                                 .resizable()

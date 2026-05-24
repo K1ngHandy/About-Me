@@ -4,7 +4,7 @@ import SwiftUI
 struct AboutMeApp: App {
     var body: some Scene {
         WindowGroup {
-            GlassHomeView()
+            GlassHomeView(information: information)
         }
     }
 }
