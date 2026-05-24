@@ -5,7 +5,6 @@ struct GlassHomeView: View {
     @Namespace private var glassNS
     @State private var tilt: CGSize = .zero
 
-    // Assuming real information.links is available in your app:
     let information: Information
 
     var body: some View {
@@ -128,7 +127,7 @@ struct GlassHomeView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("About Me")
+            Text("K1ngHandy")
                 .font(.largeTitle.bold())
                 .padding(.leading, 15)
         }
@@ -158,11 +157,8 @@ struct GlassHomeView: View {
 
     private var morphingSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Showcase")
-                .font(.title2.weight(.semibold))
             Text("Social Links")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(.title2.weight(.semibold))
 
             GlassEffectContainer(spacing: 24) {
                 ScrollView(.horizontal, showsIndicators: false) {
