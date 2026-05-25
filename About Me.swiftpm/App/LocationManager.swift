@@ -19,4 +19,3 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 		userLocation  = locations.first?.coordinate
 	}
 }
-

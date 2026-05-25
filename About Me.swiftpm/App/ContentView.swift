@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var isExpanded = false
+    @State private var mapSelectionText: String = ""
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -12,21 +13,21 @@ struct ContentView: View {
                 }
                 .tag(0)
 
-			LinksView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
+            GlassHomeView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
                 .tabItem {
-                    Label("Links", systemImage: "person.line.dotted.person.fill")
+                    Label("Social", systemImage: "person.line.dotted.person.fill")
                 }
                 .tag(1)
             
-            MapView(placeID: "king_of_prussia")
+            MapView(placeID: "king_of_prussia", selectionText: $mapSelectionText)
                 .tabItem {
                     Label("Map", systemImage: "map.circle")
                 }
                 .tag(2)
             
-            Commits()
+            Profile()
                 .tabItem {
-                    Label("Commits", systemImage: "laptopcomputer")
+                    Label("Profile", systemImage: "laptopcomputer")
                 }
                 .tag(3)
         }
@@ -40,4 +41,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-

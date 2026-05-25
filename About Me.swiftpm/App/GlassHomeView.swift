@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct GlassHomeView: View {
-    @State private var isExpanded = false
+    // Receive expansion state and selected tab from parent so this view can coordinate with the rest of the app
+    @Binding var isExpanded: Bool
+    @Binding var selectedTab: Int
     @Namespace private var glassNS
     @State private var tilt: CGSize = .zero
 
@@ -38,14 +40,20 @@ struct GlassHomeView: View {
                                 .blendMode(.overlay)
                         }
 
-                        VStack(spacing: 24) {
-                            header
-                            GlassEffectContainer(spacing: 28) {
-                                controls
+                            VStack(spacing: 24) {
+                                // Top header: show compact title when collapsed, full `HeaderView` when expanded
+                                if isExpanded {
+                                    HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
+                                } else {
+                                    header
+                                }
+
+                                GlassEffectContainer(spacing: 28) {
+                                    controls
+                                }
+                                morphingSection
+                                Spacer(minLength: 0)
                             }
-                            morphingSection
-                            Spacer(minLength: 0)
-                        }
                         .padding(24)
                         .contentShape(Rectangle())
                         .gesture(
@@ -95,12 +103,28 @@ struct GlassHomeView: View {
                         }
 
                         VStack(spacing: 24) {
-                            header
+                            if isExpanded {
+                                HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
+                            } else {
+                                header
+                            }
                             GlassEffectContainer(spacing: 28) {
                                 controls
                             }
                             morphingSection
                             Spacer(minLength: 0)
+
+                            TabView {
+                                HomeView(isExpanded: $isExpanded, selectedTab: $selectedTab)
+                                    .tabItem { Label("Home", systemImage: "menucard.fill") }
+
+                                MapView(placeID: "king_of_prussia", selectionText: .constant(""))
+                                    .tabItem { Label("Map", systemImage: "map.circle") }
+
+                                Profile()
+                                    .tabItem { Label("Profile", systemImage: "laptopcomputer") }
+                            }
+                            .frame(height: 60)
                         }
                         .padding(24)
                         .contentShape(Rectangle())
@@ -419,6 +443,8 @@ extension ButtonStyle where Self == GlassButtonStyle {
     static var glass: GlassButtonStyle { .init() }
 }
 
-#Preview {
-    GlassHomeView(information: Information())
-}
+    #Preview {
+        // Use constant bindings in preview
+        GlassHomeView(isExpanded: .constant(false), selectedTab: .constant(1), information: Information())
+    }
+

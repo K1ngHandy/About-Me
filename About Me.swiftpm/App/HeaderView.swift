@@ -9,6 +9,10 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
+            Image("App-icon")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 63, height: 63)
             Text(information.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)

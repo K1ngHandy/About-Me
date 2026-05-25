@@ -43,7 +43,7 @@ struct WebView: UIViewRepresentable {
     }
 }
 
-struct Commits: View {
+struct Profile: View {
 	private var url: URL {
         URL(string: "https://profile-view-wkri.vercel.app/")!
     }
@@ -55,8 +55,8 @@ struct Commits: View {
     }
 }
 
-struct Commits_Previews: PreviewProvider {
+struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-        Commits()
+        Profile()
     }
 }
