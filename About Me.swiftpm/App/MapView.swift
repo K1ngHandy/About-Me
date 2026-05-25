@@ -2,8 +2,6 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-// add search bar to the map view
-
 struct IdentifiableMapItem: Identifiable {
     let id = UUID()
     let mapItem: MKMapItem
@@ -12,6 +10,9 @@ struct IdentifiableMapItem: Identifiable {
 struct MapView: View {
     var placeID: String
     @Binding var selectionText: String
+    // Bindings so MapView can interact with the shared header state
+    @Binding var isExpanded: Bool
+    @Binding var selectedTab: Int
     
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.1013, longitude: -75.3836),
@@ -24,6 +25,13 @@ struct MapView: View {
     var body: some View {
         VStack {
             if #available(iOS 17.0, *) {
+                if isExpanded {
+                    HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
+                        .padding(.horizontal)
+                        .padding(.top, 6)
+                        .zIndex(2)
+                }
+
                 Text(selectionText.isEmpty ? "Map" : selectionText)
                     .padding()
                     .font(.largeTitle)
@@ -43,6 +51,14 @@ struct MapView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
+                .onTapGesture {
+                    // Example usage: when the button is tapped we can expand the shared header
+                    // and ensure the Map tab is selected so the TitleView/Header is visible above Map content.
+                    withAnimation {
+                        selectedTab = 2
+                        isExpanded = true
+                    }
+                }
             } else {
                 Text("Map feature is not supported on your device.")
                     .padding()
@@ -104,7 +120,10 @@ struct MapView: View {
 }
 
 struct MapView_Previews: PreviewProvider {
+    @State static var isExpanded = false
+    @State static var selectedTab = 2
+
     static var previews: some View {
-        MapView(placeID: "king_of_prussia", selectionText: .constant(""))
+        MapView(placeID: "king_of_prussia", selectionText: .constant(""), isExpanded: $isExpanded, selectedTab: $selectedTab)
     }
 }

@@ -1,5 +1,4 @@
 //  Created by Steve Handy on 2024.10.26.
-//
 
 import CoreLocation
 import Combine

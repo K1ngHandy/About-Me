@@ -41,8 +41,6 @@ struct Information {
         }
     }
 }
-
-// Keep old typealias for backwards compatibility with files using `Info`.
 typealias Info = Information
 
 let information = Information()

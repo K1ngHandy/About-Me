@@ -10,157 +10,36 @@ struct GlassHomeView: View {
     let information: Information
 
     var body: some View {
-        Group {
-            if #available(iOS 16.0, *) {
-                NavigationStack {
-                    ZStack {
-                        ZStack {
-                            RadialGradient(colors: [.purple, .indigo, .blue], center: .topLeading, startRadius: 50, endRadius: 600)
-                                .ignoresSafeArea()
-                            AngularGradient(gradient: Gradient(colors: [.pink.opacity(0.6), .blue.opacity(0.6), .purple.opacity(0.6), .pink.opacity(0.6)]), center: .center)
-                                .opacity(0.4)
-                                .blendMode(.softLight)
-                                .ignoresSafeArea()
-                            // Bokeh blobs
-                            Circle().fill(Color.pink.opacity(0.35))
-                                .frame(width: 220, height: 220)
-                                .blur(radius: 60)
-                                .offset(x: -120, y: -200)
-                            Circle().fill(Color.blue.opacity(0.35))
-                                .frame(width: 260, height: 260)
-                                .blur(radius: 70)
-                                .offset(x: 140, y: 220)
-                            Circle().fill(Color.indigo.opacity(0.35))
-                                .frame(width: 180, height: 180)
-                                .blur(radius: 50)
-                                .offset(x: -40, y: 260)
-                            // Subtle animated noise
-                            LinearGradient(colors: [.white.opacity(0.05), .clear], startPoint: .top, endPoint: .bottom)
-                                .ignoresSafeArea()
-                                .blendMode(.overlay)
-                        }
+        VStack(spacing: 24) {
+            // Header is provided by the parent `ContentView` so this view focuses on its core content.
 
-                            VStack(spacing: 24) {
-                                // Top header: show compact title when collapsed, full `HeaderView` when expanded
-                                if isExpanded {
-                                    HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
-                                } else {
-                                    header
-                                }
-
-                                GlassEffectContainer(spacing: 28) {
-                                    controls
-                                }
-                                morphingSection
-                                Spacer(minLength: 0)
-                            }
-                        .padding(24)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { value in
-                                    let size = UIScreen.main.bounds.size
-                                    let x = (value.location.x / max(size.width, 1)) - 0.5
-                                    let y = (value.location.y / max(size.height, 1)) - 0.5
-                                    self.tilt = CGSize(width: x * 40, height: y * 40)
-                                }
-                                .onEnded { _ in
-                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                                        self.tilt = .zero
-                                    }
-                                }
-                        )
-                    }
-                    .toolbar { toolbarContent }
-                }
-            } else {
-                NavigationView {
-                    ZStack {
-                        ZStack {
-                            RadialGradient(colors: [.purple, .indigo, .blue], center: .topLeading, startRadius: 50, endRadius: 600)
-                                .ignoresSafeArea()
-                            AngularGradient(gradient: Gradient(colors: [.pink.opacity(0.6), .blue.opacity(0.6), .purple.opacity(0.6), .pink.opacity(0.6)]), center: .center)
-                                .opacity(0.4)
-                                .blendMode(.softLight)
-                                .ignoresSafeArea()
-                            // Bokeh blobs
-                            Circle().fill(Color.pink.opacity(0.35))
-                                .frame(width: 220, height: 220)
-                                .blur(radius: 60)
-                                .offset(x: -120, y: -200)
-                            Circle().fill(Color.blue.opacity(0.35))
-                                .frame(width: 260, height: 260)
-                                .blur(radius: 70)
-                                .offset(x: 140, y: 220)
-                            Circle().fill(Color.indigo.opacity(0.35))
-                                .frame(width: 180, height: 180)
-                                .blur(radius: 50)
-                                .offset(x: -40, y: 260)
-                            // Subtle animated noise
-                            LinearGradient(colors: [.white.opacity(0.05), .clear], startPoint: .top, endPoint: .bottom)
-                                .ignoresSafeArea()
-                                .blendMode(.overlay)
-                        }
-
-                        VStack(spacing: 24) {
-                            if isExpanded {
-                                HeaderView(isExpanded: $isExpanded, selectedTab: $selectedTab, information: information)
-                            } else {
-                                header
-                            }
-                            GlassEffectContainer(spacing: 28) {
-                                controls
-                            }
-                            morphingSection
-                            Spacer(minLength: 0)
-
-                            TabView {
-                                HomeView(isExpanded: $isExpanded, selectedTab: $selectedTab)
-                                    .tabItem { Label("Home", systemImage: "menucard.fill") }
-
-                                MapView(placeID: "king_of_prussia", selectionText: .constant(""))
-                                    .tabItem { Label("Map", systemImage: "map.circle") }
-
-                                Profile()
-                                    .tabItem { Label("Profile", systemImage: "laptopcomputer") }
-                            }
-                            .frame(height: 60)
-                        }
-                        .padding(24)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { value in
-                                    let size = UIScreen.main.bounds.size
-                                    let x = (value.location.x / max(size.width, 1)) - 0.5
-                                    let y = (value.location.y / max(size.height, 1)) - 0.5
-                                    self.tilt = CGSize(width: x * 40, height: y * 40)
-                                }
-                                .onEnded { _ in
-                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                                        self.tilt = .zero
-                                    }
-                                }
-                        )
-                    }
-                    .toolbar { toolbarContent }
-                }
+            GlassEffectContainer(spacing: 28) {
+                controls
             }
+
+            morphingSection
+
+            Spacer(minLength: 0)
         }
+        .padding(24)
+        .contentShape(Rectangle())
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    let size = UIScreen.main.bounds.size
+                    let x = (value.location.x / max(size.width, 1)) - 0.5
+                    let y = (value.location.y / max(size.height, 1)) - 0.5
+                    self.tilt = CGSize(width: x * 40, height: y * 40)
+                }
+                .onEnded { _ in
+                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                        self.tilt = .zero
+                    }
+                }
+        )
     }
 
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("K1ngHandy")
-                .font(.largeTitle.bold())
-                .padding(.leading, 15)
-        }
-        .padding(20)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .glassEffect(.regular.tint(.white.opacity(0.12)).interactive(), in: .rect(cornerRadius: 24))
-        .shadow(color: .white.opacity(0.2), radius: 8, y: 2)
-        .shadow(color: .black.opacity(0.25), radius: 20, y: 12)
-    }
+    // header moved to ContentView; kept out of this view so the top header is shared app-wide.
 
     private var controls: some View {
         HStack(spacing: 20) {
@@ -207,39 +86,14 @@ struct GlassHomeView: View {
                 }
             }
         }
-        .padding(20)
+        .padding(.vertical, 20)
+        .padding(.horizontal, -24)
         .frame(maxWidth: .infinity, alignment: .leading)
         .glassEffect(.regular.tint(Color.white.opacity(0.06)), in: .rect(cornerRadius: 24))
         .shadow(color: .black.opacity(0.25), radius: 24, y: 16)
     }
 
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            HStack(spacing: 8) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 18, weight: .semibold))
-                    .glassEffect(.regular, in: .circle)
-                Text("Liquid Glass")
-                    .font(.subheadline.weight(.semibold))
-            }
-            .padding(.horizontal, 8)
-        }
-
-        ToolbarItemGroup(placement: .topBarTrailing) {
-            Button(action: {}) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .semibold))
-            }
-            .buttonStyle(.glass)
-
-            Button(action: {}) {
-                Image(systemName: "gearshape")
-                    .font(.system(size: 16, weight: .semibold))
-            }
-            .buttonStyle(.glass)
-        }
-    }
+    // Toolbar moved to `ContentView` so it's visible throughout the app.
 }
 
 private struct GlassButton: View {
