@@ -18,9 +18,15 @@ struct GlassHomeView: View {
             }
 
             morphingSection
+                .padding(.vertical, 21)
+                .padding(.horizontal, -24)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
 
             Spacer(minLength: 0)
         }
+        .background(Color.clear)
+        .ignoresSafeArea(.container, edges: .horizontal)
         .padding(24)
         .contentShape(Rectangle())
         .gesture(

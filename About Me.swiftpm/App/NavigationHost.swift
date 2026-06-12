@@ -15,7 +15,7 @@ struct NavigationHost: View {
                             selectedTab: $selectedTab
                         )
                         .tabItem {
-                            Label("Home", systemImage: "menucard.fill")
+                            Label("Home", systemImage: "house")
                         }
                         .tag(0)
     
@@ -27,7 +27,7 @@ struct NavigationHost: View {
                         .tabItem {
                             Label(
                                 "Social",
-                                systemImage: "person.line.dotted.person.fill"
+                                systemImage: "sparkles"
                             )
                         }
                         .tag(1)
@@ -39,21 +39,19 @@ struct NavigationHost: View {
                             selectedTab: $selectedTab
                         )
                         .tabItem {
-                            Label("Map", systemImage: "map.circle")
+                            Label("Map", systemImage: "map")
                         }
                         .tag(2)
     
                         Profile()
                             .tabItem {
-                                Label("Profile", systemImage: "laptopcomputer")
+                                Label("Profile", systemImage: "person")
                             }
                             .tag(3)
                     }
                     .padding(
                         .top
                     )
-                    // Ensure the TabView does not draw an opaque background so the
-                    // shared `AppBackground` behind `NavigationHost` remains visible.
                     .background(Color.clear)
                     .ignoresSafeArea(edges: .all)
                     VStack {
@@ -73,6 +71,21 @@ struct NavigationHost: View {
                                 .padding(.top, 8)
                         }
                         Spacer()
+                    }
+                    // Footer shown only for the Title (Home) tab
+                    VStack {
+                        Spacer()
+                        if selectedTab == 0 {
+                            GeometryReader { geo in
+                                // GeometryReader used only to read safe area inset; keep height 0 so it doesn't affect layout.
+                                FooterView(information: information)
+                                    .padding(.horizontal)
+                                    // place footer above system tab bar using safe area inset + small offset
+                                    .padding(.bottom, geo.safeAreaInsets.bottom + 12)
+                            }
+                            .frame(height: 0)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                        }
                     }
                 }
                 .toolbar {

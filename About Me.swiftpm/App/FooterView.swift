@@ -2,12 +2,19 @@ import SwiftUI
 
 struct FooterView: View {
     let information: Info
-    
+
     var body: some View {
-        Text("Coded by: \(information.name)")
-            .foregroundColor(Color.accentColor)
-            .font(.caption)
-            .padding(EdgeInsets(top: 75, leading: 99, bottom: 0, trailing: 0))
+        HStack {
+            Spacer()
+            Text("Coded by: \(information.name)")
+                .foregroundColor(Color.accentColor)
+                .font(.caption)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+            Spacer()
+        }
+        // let parent decide final bottom padding so FooterView can be reused
     }
 }
 

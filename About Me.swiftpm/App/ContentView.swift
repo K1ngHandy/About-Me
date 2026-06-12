@@ -1,5 +1,8 @@
 import SwiftUI
 
+// FooterView is managed inside NavigationHost and only shown for Home tab.
+// Do not add a FooterView here.
+
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var isExpanded = false
